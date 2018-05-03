@@ -1,6 +1,6 @@
 <template>
     <ul class="chat">
-        <li class="left clearfix" v-for="message in messages">
+        <li class="left clearfix" v-for="message in messages111">
             <div class="chat-body clearfix">
                 <div class="header">
                     <strong class="primary-font">
@@ -15,6 +15,9 @@
 
 <script>
     export default {
-        props: ['messages']
+        props: ['messages111'],
+        updated() {
+            console.log(this.messages111);
+        }
     }
 </script>

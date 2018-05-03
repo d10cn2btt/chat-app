@@ -21,28 +21,31 @@ Vue.component('chat-form', require('./components/ChatForm.vue'));
 const app = new Vue({
     el: '#app',
     data: {
-        messages: []
+        messageList: []
     },
     created() {
+        // Get all message when enter room
         // this.fetchMessages();
-        // Echo.private('chat')
-        //     .listen('MessageSent', (e) => {
-        //         this.messages.push({
-        //             message: e.message.message,
-        //             user: e.user
-        //         })
-        //     })
+        // sync message real-time
+        Echo.private('chat')
+            .listen('MessageSent', (e) => {
+                this.messageList.push({
+                    message: e.message.message,
+                    user: e.user
+                })
+            })
     },
 
     methods: {
         fetchMessages() {
             axios.get('/messages').then(response => {
-                this.messages = response.data
+                this.messageList = response.data
             })
         },
 
-        addMessage(message) {
-            this.messages.push(message);
+        addMessage(message, abc) {
+            console.log(abc);
+            this.messageList.push(message);
 
             axios.post('/messages', message).then(resposne => {
                 console.log(resposne.data);

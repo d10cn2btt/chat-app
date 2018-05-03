@@ -18,10 +18,10 @@
         },
         methods: {
             sendMessage() {
-                this.$emit('messagesent', {
+                this.$emit('message-event', {
                     user: this.user,
                     message: this.newMessage
-                });
+                }, '213123123');
 
                 this.newMessage = '';
             }
