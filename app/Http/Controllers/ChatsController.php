@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Events\MessageSent;
 use App\Models\Message;
+use App\Models\MoreText;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class ChatsController extends Controller
 {
@@ -32,7 +34,12 @@ class ChatsController extends Controller
             'message' => $request->input('message')
         ]);
 
-        broadcast(new MessageSent($user, $message))->toOthers();
+        $message->more = '1111';
+
+//        dump($message);
+
+        broadcast(new MessageSent($user, $message, new MoreText()))->toOthers();
+//        event(new MessageSent($user, $message, new MoreText()));
 
         return ['status' => 'Message Send!'];
     }

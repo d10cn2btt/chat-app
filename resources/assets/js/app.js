@@ -26,9 +26,13 @@ const app = new Vue({
     created() {
         // Get all message when enter room
         // this.fetchMessages();
-        // sync message real-time
-        Echo.private('chat')
+        /**
+         * Sync message real-time
+         * `chat-channel` must same in MessageSent.php and routes/channels.php
+         */
+        Echo.private('chat-channel')
             .listen('MessageSent', (e) => {
+                console.log(e);
                 this.messageList.push({
                     message: e.message.message,
                     user: e.user

@@ -1,5 +1,6 @@
 <template>
     <ul class="chat">
+        {{messages111}}
         <li class="left clearfix" v-for="message in messages111">
             <div class="chat-body clearfix">
                 <div class="header">
@@ -16,7 +17,7 @@
 <script>
     export default {
         props: ['messages111'],
-        updated() {
+        created() {
             console.log(this.messages111);
         }
     }
