@@ -18,42 +18,86 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
 Vue.component('chat-messages', require('./components/ChatMessages.vue'));
 Vue.component('chat-form', require('./components/ChatForm.vue'));
 
+Vue.component('chat-room-list', require('./components/chat-room/Chat.vue'));
+Vue.component('chat-room-composer', require('./components/chat-room/ChatComposer.vue'));
+Vue.component('online-user', require('./components/chat-room/OnlineUser.vue'));
+
+// const app = new Vue({
+//     el: '#app',
+//     data: {
+//         messageList: []
+//     },
+//     created() {
+//         // Get all message when enter room
+//         // this.fetchMessages();
+//         /**
+//          * Sync message real-time
+//          * `chat-channel` must same in MessageSent.php and routes/channels.php
+//          */
+//         Echo.private('chat-channel')
+//             .listen('MessageSent', (e) => {
+//                 console.log(e);
+//                 this.messageList.push({
+//                     message: e.message.message,
+//                     user: e.user
+//                 })
+//             })
+//     },
+//
+//     methods: {
+//         fetchMessages() {
+//             axios.get('/messages').then(response => {
+//                 this.messageList = response.data
+//             })
+//         },
+//
+//         addMessage(message, abc) {
+//             console.log(abc);
+//             this.messageList.push(message);
+//
+//             axios.post('/messages', message).then(resposne => {
+//                 console.log(resposne.data);
+//             })
+//         }
+//     }
+// });
+
 const app = new Vue({
     el: '#app',
     data: {
-        messageList: []
+        chats: '',
+        onlineUsers: '',
     },
     created() {
-        // Get all message when enter room
-        // this.fetchMessages();
-        /**
-         * Sync message real-time
-         * `chat-channel` must same in MessageSent.php and routes/channels.php
-         */
-        Echo.private('chat-channel')
-            .listen('MessageSent', (e) => {
-                console.log(e);
-                this.messageList.push({
-                    message: e.message.message,
-                    user: e.user
+        const userId = $('meta[name="userId"]').attr('content');
+        const friendId = $('meta[name="friendId"]').attr('content');
+
+        if (friendId != undefined) {
+            axios.post('/chat-room/history/' + friendId).then((response) => {
+                console.log(response.data);
+                this.chats = response.data;
+            });
+
+            Echo.private('chat-room.' + friendId + '.' + userId)
+                .listen('ChatRoomBroadCast', (e) => {
+                    console.log(e.chatRoom);
+                    this.chats.push(e.chatRoom);
+                });
+        }
+
+        if (userId != undefined) {
+            Echo.join('online')
+                .here((users) => {
+                    this.onlineUsers = users
                 })
-            })
-    },
-
-    methods: {
-        fetchMessages() {
-            axios.get('/messages').then(response => {
-                this.messageList = response.data
-            })
-        },
-
-        addMessage(message, abc) {
-            console.log(abc);
-            this.messageList.push(message);
-
-            axios.post('/messages', message).then(resposne => {
-                console.log(resposne.data);
-            })
+                .joining((user) => {
+                    this.onlineUsers.push(user);
+                })
+                .leaving((user) => {
+                    this.onlineUsers = this.onlineUsers.filter((u) => {
+                        u != user;
+                    });
+                })
         }
     }
 });

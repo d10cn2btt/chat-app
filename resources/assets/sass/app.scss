@@ -17,39 +17,65 @@
 }
 
 // chat box
- .chat {
-   list-style: none;
-   margin: 0;
-   padding: 0;
- }
+#chat-container {
+  .chat {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
 
-.chat li {
-  margin-bottom: 10px;
-  padding-bottom: 5px;
-  border-bottom: 1px dotted #B3A9A9;
+  .chat li {
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #B3A9A9;
+  }
+
+  .chat li .chat-body p {
+    margin: 0;
+    color: #777777;
+  }
+
+  .panel-body {
+    overflow-y: scroll;
+    height: 350px;
+  }
+
+  ::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #F5F5F5;
+  }
+
+  ::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    background-color: #555;
+  }
 }
 
-.chat li .chat-body p {
-  margin: 0;
-  color: #777777;
+// Chat Room Private
+#chat-room-private {
+  .panel-title {
+    font-size: 18px;
+  }
 }
 
-.panel-body {
-  overflow-y: scroll;
-  height: 350px;
-}
+// Chat Room - List Friend
+#list-friend {
+  .list-group {
+    a {
+      text-decoration: none;
+      color: #212529;
+    }
 
-::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  background-color: #F5F5F5;
-}
-
-::-webkit-scrollbar {
-  width: 12px;
-  background-color: #F5F5F5;
-}
-
-::-webkit-scrollbar-thumb {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
-  background-color: #555;
+    li {
+      &:hover {
+        background: #dfe6f1;
+        transition: background 0.15s;
+      }
+    }
+  }
 }

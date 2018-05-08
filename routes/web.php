@@ -24,3 +24,10 @@ Route::get('messages', 'ChatsController@fetchMessages');
 Route::post('messages', 'ChatsController@sendMessages');
 
 Route::get('/friends', 'FriendsController@index')->middleware('auth');
+
+Route::group(['prefix' => '/chat-room', 'middleware' => ['auth']], function () {
+    Route::get('/', 'ChatRoomController@index')->name('chat-room.index');
+    Route::get('/{userId}', 'ChatRoomController@show')->name('chat-room.show');
+    Route::post('/history/{chatRoomId}', 'ChatRoomController@history')->name('chat-room.history');
+    Route::post('/sendChat', 'ChatRoomController@sendChat')->name('chat-room.send-chat');
+});
