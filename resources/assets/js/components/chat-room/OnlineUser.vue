@@ -9,7 +9,7 @@
         props: ['friend', 'onlineusers'],
         methods: {
             checkUser: function () {
-                console.log('onlines uer', this.onlineusers);
+//                console.log('onlines uer', this.onlineusers);
                 return _.find(this.onlineusers, {id: this.friend.id});
             }
         }

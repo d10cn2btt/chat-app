@@ -9,6 +9,7 @@ class RedirectIfAuthenticated
 {
     /**
      * Handle an incoming request.
+     * This is the route that you are sent to if you're already logged in and try to access the /login route
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next

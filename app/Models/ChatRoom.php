@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ChatRoom extends Model
 {
     protected $dispatchesEvents = [
-        'created' => ChatRoomBroadCast::class,
+//        'created' => ChatRoomBroadCast::class,
     ];
 
     protected $fillable = [

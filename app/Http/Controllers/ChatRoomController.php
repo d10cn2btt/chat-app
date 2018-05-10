@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ChatRoomBroadCast;
 use App\Models\ChatRoom;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -45,6 +46,8 @@ class ChatRoomController extends Controller
      */
     public function show($userId)
     {
+        app('debugbar')->disable();
+
         $friend = User::find($userId);
         return view('chat-room.show', compact('friend'));
     }
@@ -57,15 +60,17 @@ class ChatRoomController extends Controller
         })->orWhere(function ($query) use ($chatRoomId) {
             $query->where('friend_id', Auth::user()->id)
                 ->where('user_id', $chatRoomId);
-        })->get();
+        })->orderBy('created_at', 'asc')->get();
     }
 
     public function sendChat(Request $request)
     {
-        ChatRoom::create([
+        $chatRoom = ChatRoom::create([
             'user_id' => $request->user_id,
             'friend_id' => $request->friend_id,
             'chat' => $request->chat
         ]);
+
+        broadcast(new ChatRoomBroadCast($chatRoom))->toOthers();
     }
 }

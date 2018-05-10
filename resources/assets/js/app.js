@@ -74,8 +74,12 @@ const app = new Vue({
 
         if (friendId != undefined) {
             axios.post('/chat-room/history/' + friendId).then((response) => {
-                console.log(response.data);
+                // console.log(response.data);
                 this.chats = response.data;
+                setTimeout(function () {
+                    console.log($('.direct-chat-primary').height());
+                    $("html, body").animate({ scrollTop: $('.direct-chat-primary').height() }, 100);
+                }, 0);
             });
 
             Echo.private('chat-room.' + friendId + '.' + userId)
@@ -86,6 +90,8 @@ const app = new Vue({
         }
 
         if (userId != undefined) {
+            // When we enter page, it will send a request to broadcast/auth
+            // The Function handled is channel.php
             Echo.join('online')
                 .here((users) => {
                     this.onlineUsers = users
@@ -99,5 +105,5 @@ const app = new Vue({
                     });
                 })
         }
-    }
+    },
 });
