@@ -6,7 +6,7 @@
         border-top: 3px solid #d2d6de;
         margin-bottom: 20px;
         width: 100%;
-        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+        /*box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);*/
     }
 
     .box.box-primary {
@@ -26,7 +26,7 @@
     .direct-chat-messager {
         transform: translate(0, 0);
         padding: 10px;
-        height: 100%;
+        /*height: 90vh;*/
         overflow: auto;
     }
 
@@ -126,7 +126,13 @@
     }
 
     .direct-chat-msg:last-child {
-        margin-bottom: 40px;
+        /*margin-bottom: 40px;*/
+    }
+
+    .no-message {
+        /*height: 90vh;*/
+        text-align: center;
+        font-size: 20px;
     }
 </style>
 
@@ -139,7 +145,7 @@
                     <!--<span class="direct-chat-timestamp">{{msg.created_at}}</span>-->
                 </div>
                 <!-- /.direct-chat-info -->
-                <img class="direct-chat-img" src="https://adminlte.io/themes/AdminLTE/dist/img/user1-128x128.jpg"
+                <img class="direct-chat-img" :src="msg.user.avatar"
                      alt="Message User Image"><!-- /.direct-chat-img -->
                 <div class="direct-chat-text">{{msg.chat}}</div>
                 <!-- /.direct-chat-text -->

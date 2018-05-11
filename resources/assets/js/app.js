@@ -18,6 +18,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
 Vue.component('chat-messages', require('./components/ChatMessages.vue'));
 Vue.component('chat-form', require('./components/ChatForm.vue'));
 
+Vue.component('list-friend', require('./components/chat-room/ListFriend.vue'));
 Vue.component('chat-room-list', require('./components/chat-room/Chat.vue'));
 Vue.component('chat-room-composer', require('./components/chat-room/ChatComposer.vue'));
 Vue.component('online-user', require('./components/chat-room/OnlineUser.vue'));

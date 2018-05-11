@@ -71,11 +71,10 @@
       color: #212529;
     }
 
-    li {
-      &:hover {
-        background: #dfe6f1;
-        transition: background 0.15s;
-      }
+    .avt-friend {
+      width: 35px;
+      border-radius: 50%;
+      margin-right: 10px;
     }
   }
 }
@@ -93,14 +92,28 @@
 #load-iframe, .iframe-chat-private {
   width: 100%;
   border: none;
-  height: 310px;
+  height: 100%;
 }
 
-.friend-name {
-  background: #4080ff;
-  color: white;
-  font-weight: bold;
-  padding: 4px 10px;
-  line-height: 22px;
-  font-size: 16px;
+#box-private {
+  .friend-name {
+    background: #3c8dbc;
+    color: white;
+    font-weight: bold;
+    padding: 5px 10px;
+    line-height: 22px;
+    font-size: 18px;
+  }
+
+  .panel-heading {
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    width: 100%;
+  }
+
+  .panel-body {
+    margin-top: 30px;
+    margin-bottom: 60px;
+  }
 }

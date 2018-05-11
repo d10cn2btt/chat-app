@@ -11,7 +11,7 @@
 
 <template>
     <div class="input-group">
-        <input type="text" class="form-control" v-model="chat" v-on:keyup.enter="sendChat">
+        <input type="text" class="form-control" v-model="chat" v-on:keyup.enter="sendChat" autofocus>
         <!--<div class="input-group-append">-->
             <!--<button class="btn btn-primary" type="button" v-on:click="sendChat">Send</button>-->
         <!--</div>-->

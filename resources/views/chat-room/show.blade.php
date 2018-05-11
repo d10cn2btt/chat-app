@@ -21,14 +21,19 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        html {
+            background: white;
+        }
+    </style>
 </head>
 <body>
 <div id="app">
     <div class="row1" id="1chat-room-private">
         <meta name="friendId" content="{{ $friend->id }}">
-        <div class="col-md-12" style="padding: 0">
+        <div class="col-md-12" style="padding: 0" id="box-private">
             <div class="panel panel-primary">
-                <div class="panel-heading">
+                <div class="panel-heading friend-name">
                     <span class="panel-title">{{$friend->name}}</span>
                     {{--<div class="pull-right">--}}
                         {{--<a href="{{route('chat-room.index')}}"><i class="fa fa-arrow-left"></i> Go Back</a>--}}

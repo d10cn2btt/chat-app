@@ -60,7 +60,9 @@ class ChatRoomController extends Controller
         })->orWhere(function ($query) use ($chatRoomId) {
             $query->where('friend_id', Auth::user()->id)
                 ->where('user_id', $chatRoomId);
-        })->orderBy('created_at', 'asc')->get();
+        })->orderBy('created_at', 'asc')
+            ->with(['user', 'friend'])
+            ->get();
     }
 
     public function sendChat(Request $request)

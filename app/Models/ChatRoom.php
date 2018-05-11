@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Events\ChatRoomBroadCast;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class ChatRoom extends Model
@@ -16,4 +17,19 @@ class ChatRoom extends Model
         'friend_id',
         'chat',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function friend()
+    {
+        return $this->belongsTo(User::class, 'friend_id');
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::now()->diffForHumans($value);
+    }
 }
