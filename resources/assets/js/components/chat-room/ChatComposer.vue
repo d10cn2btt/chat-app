@@ -20,7 +20,7 @@
 
 <script>
     export default {
-        props: ['user_id', 'friend_id', 'history'],
+        props: ['user_id', 'friend_id', 'history', 'avatar'],
         data() {
             return {
                 chat: ''
@@ -35,7 +35,10 @@
                 let data = {
                     chat: this.chat,
                     user_id: this.user_id,
-                    friend_id: this.friend_id
+                    friend_id: this.friend_id,
+                    user: {
+                        avatar: $('meta[name=user_avatar]').attr('content'),
+                    }
                 };
 
                 axios.post('/chat-room/sendChat', data).then((response) => {

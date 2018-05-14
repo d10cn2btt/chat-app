@@ -35,4 +35,18 @@ class ChatRoomBroadCast implements ShouldBroadcast
     {
         return new PrivateChannel('chat-room.' . $this->chatRoom->user_id . '.' . $this->chatRoom->friend_id);
     }
+
+//    public function broadcastWith()
+//    {
+////        return array_merge([
+////            'chatRoom' => [
+////                'user' => '12123123'
+////            ]],
+////            ['chatRoom' => $this->chatRoom]
+////        );
+//
+//        $this->chatRoom = $this->chatRoom->setAttribute('abc', 123123);
+//
+//        dd($this->chatRoom);
+//    }
 }

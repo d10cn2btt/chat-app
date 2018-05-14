@@ -61,7 +61,7 @@ class ChatRoomController extends Controller
             $query->where('friend_id', Auth::user()->id)
                 ->where('user_id', $chatRoomId);
         })->orderBy('created_at', 'asc')
-            ->with(['user', 'friend'])
+            ->with(['user'])
             ->get();
     }
 
@@ -72,6 +72,8 @@ class ChatRoomController extends Controller
             'friend_id' => $request->friend_id,
             'chat' => $request->chat
         ]);
+
+        $chatRoom->load('user');
 
         broadcast(new ChatRoomBroadCast($chatRoom))->toOthers();
     }

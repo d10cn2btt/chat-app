@@ -13,7 +13,7 @@
                 </div>
             </div>
         </div>
-        <div id="iframe-wrapper1" class="col">
+        <div id="iframe-wrapper1" class="col" style="min-height: 80vh">
             <div id="load-iframe"></div>
         </div>
     </div>

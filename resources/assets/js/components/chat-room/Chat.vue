@@ -76,6 +76,7 @@
     .right .direct-chat-text {
         margin-right: 15px;
         margin-left: 0;
+        float: right;
     }
 
     .box-footer {
@@ -119,10 +120,6 @@
 
     .direct-chat-text {
         float: left;
-    }
-
-    .right .direct-chat-text {
-        float: right;
     }
 
     .direct-chat-msg:last-child {

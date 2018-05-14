@@ -16,6 +16,7 @@ class ChatRoom extends Model
         'user_id',
         'friend_id',
         'chat',
+        'user'
     ];
 
     public function user()

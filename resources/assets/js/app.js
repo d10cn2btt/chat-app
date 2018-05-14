@@ -77,16 +77,14 @@ const app = new Vue({
             axios.post('/chat-room/history/' + friendId).then((response) => {
                 // console.log(response.data);
                 this.chats = response.data;
-                setTimeout(function () {
-                    console.log($('.direct-chat-primary').height());
-                    $("html, body").animate({ scrollTop: $('.direct-chat-primary').height() }, 100);
-                }, 0);
+                this.scrollToBottom();
             });
 
             Echo.private('chat-room.' + friendId + '.' + userId)
                 .listen('ChatRoomBroadCast', (e) => {
-                    console.log(e.chatRoom);
+                    console.log(e);
                     this.chats.push(e.chatRoom);
+                    this.scrollToBottom();
                 });
         }
 
@@ -107,4 +105,12 @@ const app = new Vue({
                 })
         }
     },
+    methods: {
+        scrollToBottom: function() {
+            setTimeout(function () {
+                console.log($('.direct-chat-primary').height());
+                $("html, body").animate({ scrollTop: $('.direct-chat-primary').height() }, 100);
+            }, 0);
+        }
+    }
 });
