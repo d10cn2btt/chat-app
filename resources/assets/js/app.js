@@ -23,6 +23,8 @@ Vue.component('chat-room-list', require('./components/chat-room/Chat.vue'));
 Vue.component('chat-room-composer', require('./components/chat-room/ChatComposer.vue'));
 Vue.component('online-user', require('./components/chat-room/OnlineUser.vue'));
 
+Vue.component('notification', require('./components/Notification.vue'));
+
 // const app = new Vue({
 //     el: '#app',
 //     data: {
@@ -68,6 +70,7 @@ const app = new Vue({
     data: {
         chats: '',
         onlineUsers: '',
+        notifications: '',
     },
     created() {
         const userId = $('meta[name="userId"]').attr('content');
@@ -104,6 +107,11 @@ const app = new Vue({
                     });
                 })
         }
+
+        // Notification
+        axios.post('/notification/listAll').then(response => {
+            this.notifications = response;
+        })
     },
     methods: {
         scrollToBottom: function() {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\ChatRoomBroadCast;
 use App\Models\ChatRoom;
 use App\Models\User;
+use App\Notifications\NotifyChatRoom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -76,5 +77,6 @@ class ChatRoomController extends Controller
         $chatRoom->load('user');
 
         broadcast(new ChatRoomBroadCast($chatRoom))->toOthers();
+        Auth::user()->notify(new NotifyChatRoom($chatRoom));
     }
 }

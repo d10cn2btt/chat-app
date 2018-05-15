@@ -31,3 +31,5 @@ Route::group(['prefix' => '/chat-room', 'middleware' => ['auth']], function () {
     Route::post('/history/{chatRoomId}', 'ChatRoomController@history')->name('chat-room.history');
     Route::post('/sendChat', 'ChatRoomController@sendChat')->name('chat-room.send-chat');
 });
+
+Route::post('/notification/listAll', 'NotificationController@listAll');
