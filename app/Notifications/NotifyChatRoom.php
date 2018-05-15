@@ -33,7 +33,7 @@ class NotifyChatRoom extends Notification
     public function via($notifiable)
     {
 //        return ['mail'];
-        return ['database'];
+        return ['database', 'broadcast'];
     }
 
     /**
@@ -53,7 +53,14 @@ class NotifyChatRoom extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'post' => ''
+            'chat_room' => $this->chatRoom
+        ];
+    }
+
+    public function toBroadcast($notifiable)
+    {
+        return [
+            'chat_room' => $this->chatRoom
         ];
     }
 

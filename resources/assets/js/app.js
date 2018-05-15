@@ -106,11 +106,16 @@ const app = new Vue({
                         u != user;
                     });
                 })
+
+            // Notification
+            Echo.private('App.User.' + userId).notification((notification) => {
+                console.log('Notice nay : ' + notification);
+            })
         }
 
         // Notification
         axios.post('/notification/listAll').then(response => {
-            this.notifications = response;
+            this.notifications = response.data;
         })
     },
     methods: {

@@ -33,3 +33,4 @@ Route::group(['prefix' => '/chat-room', 'middleware' => ['auth']], function () {
 });
 
 Route::post('/notification/listAll', 'NotificationController@listAll');
+Route::post('/notification/read', 'NotificationController@read');
