@@ -23,14 +23,17 @@
         props: ['user_id', 'friend_id', 'history', 'avatar'],
         data() {
             return {
-                chat: ''
+                chat: '',
+                timeout: Math.floor(Date.now() / 1000),
             }
         },
         methods: {
             sendChat: function (e) {
-                if (this.chat == '') {
+                if (this.chat == '' || this.timeout == Math.floor(Date.now() / 1000)) {
                     return false;
                 }
+
+                this.timeout = Math.floor(Date.now() / 1000);
 
                 let data = {
                     chat: this.chat,
