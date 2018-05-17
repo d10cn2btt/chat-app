@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\UserOffline;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        Mail::to('clonemainbtt@gmail.com')->send(new UserOffline());
         return view('home');
     }
 }

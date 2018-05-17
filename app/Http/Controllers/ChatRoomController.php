@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Events\ChatRoomBroadCast;
+use App\Mail\UserOffline;
 use App\Models\ChatRoom;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class ChatRoomController extends Controller
 {
@@ -76,5 +78,6 @@ class ChatRoomController extends Controller
         $chatRoom->load('user');
 
         broadcast(new ChatRoomBroadCast($chatRoom))->toOthers();
+        Mail::to(User::find($request->friend_id)->email)->send(new UserOffline($chatRoom));
     }
 }

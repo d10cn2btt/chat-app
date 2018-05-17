@@ -8,6 +8,7 @@
                         <li class="list-group-item" :class="[friend.id == currentChatWith ? 'active' : '']" v-on:click="loadIframe(friend.id)" v-for="friend in list_friend">
                             <img class="avt-friend" :src="friend.avatar" alt="">
                             {{friend.name}}
+                            <online-user :friend="friend" :onlineusers="onlineusers"></online-user>
                         </li>
                     </ul>
                 </div>
@@ -21,7 +22,7 @@
 
 <script>
     export default {
-        props: ['list_friend'],
+        props: ['list_friend', 'onlineusers'],
         data: function () {
             return {
                 currentChatWith: ''

@@ -29,7 +29,7 @@
             {{--</div>--}}
         {{--</div>--}}
 
-        <list-friend :list_friend="{{$friends}}"></list-friend>
+        <list-friend :list_friend="{{$friends}}" :onlineusers="onlineusers"></list-friend>
     </div>
 @endsection
 

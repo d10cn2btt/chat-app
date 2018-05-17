@@ -67,7 +67,7 @@ const app = new Vue({
     el: '#app',
     data: {
         chats: '',
-        onlineUsers: '',
+        onlineusers: '',
     },
     created() {
         const userId = $('meta[name="userId"]').attr('content');
@@ -85,6 +85,7 @@ const app = new Vue({
                     console.log(e);
                     this.chats.push(e.chatRoom);
                     this.scrollToBottom();
+                    this.pushNotification();
                 });
         }
 
@@ -93,13 +94,13 @@ const app = new Vue({
             // The Function handled is channel.php
             Echo.join('online')
                 .here((users) => {
-                    this.onlineUsers = users
+                    this.onlineusers = users
                 })
                 .joining((user) => {
-                    this.onlineUsers.push(user);
+                    this.onlineusers.push(user);
                 })
                 .leaving((user) => {
-                    this.onlineUsers = this.onlineUsers.filter((u) => {
+                    this.onlineusers = this.onlineusers.filter((u) => {
                         u != user;
                     });
                 })
@@ -111,6 +112,21 @@ const app = new Vue({
                 console.log($('.direct-chat-primary').height());
                 $("html, body").animate({ scrollTop: $('.direct-chat-primary').height() }, 100);
             }, 0);
+        },
+        pushNotification: function () {
+            console.log('push notification');
+            Push.create('Hello world!', {
+                body: "CLGT",
+                icon: 'https://deerawan.gallerycdn.vsassets.io/extensions/deerawan/vscode-material2-snippets/2.0.0/1488020846563/Microsoft.VisualStudio.Services.Icons.Default',
+                link: '/#',
+                timeout: 4000,
+                onClick: function () {
+                    console.log("Fired!");
+                    window.focus();
+                    this.close();
+                },
+                vibrate: [200, 100, 200, 100, 200, 100, 200]
+            });
         }
     }
 });

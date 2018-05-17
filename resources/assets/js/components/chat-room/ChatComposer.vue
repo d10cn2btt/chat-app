@@ -11,9 +11,9 @@
 
 <template>
     <div class="input-group">
-        <input type="text" class="form-control" v-model="chat" v-on:keyup.enter="sendChat" autofocus>
+        <input type="text" class="form-control" :disabled="is_disabled" v-model="chat" v-on:keyup.enter="sendChat" autofocus>
         <!--<div class="input-group-append">-->
-            <!--<button class="btn btn-primary" type="button" v-on:click="sendChat">Send</button>-->
+        <!--<button class="btn btn-primary" type="button" v-on:click="sendChat">Send</button>-->
         <!--</div>-->
     </div>
 </template>
@@ -24,12 +24,13 @@
         data() {
             return {
                 chat: '',
-                timeout: Math.floor(Date.now() / 1000),
+                is_disabled: false,
             }
         },
         methods: {
             sendChat: function (e) {
-                if (this.chat == '' || this.timeout == Math.floor(Date.now() / 1000)) {
+                this.is_disabled = true;
+                if (this.chat == '') {
                     return false;
                 }
 
@@ -47,9 +48,12 @@
                 axios.post('/chat-room/sendChat', data).then((response) => {
                     this.history.push(data);
                     this.chat = '';
-                    $("html, body").animate({ scrollTop: $(document).height() }, 100);
+                    this.is_disabled = false;
+                    $("html, body").animate({scrollTop: $(document).height()}, 100);
+                }).catch((error) => {
+                    this.is_disabled = false;
                 });
-            }
+            },
         }
     }
 </script>
