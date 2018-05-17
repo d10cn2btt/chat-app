@@ -5,6 +5,7 @@
  */
 
 require('./bootstrap');
+// require('./push.min');
 
 window.Vue = require('vue');
 
@@ -81,11 +82,12 @@ const app = new Vue({
             });
 
             Echo.private('chat-room.' + friendId + '.' + userId)
+            // Echo.private('chat-room.1.2')
                 .listen('ChatRoomBroadCast', (e) => {
                     console.log(e);
                     this.chats.push(e.chatRoom);
                     this.scrollToBottom();
-                    this.pushNotification();
+                    // this.pushNotification();
                 });
         }
 
@@ -94,30 +96,59 @@ const app = new Vue({
             // The Function handled is channel.php
             Echo.join('online')
                 .here((users) => {
-                    this.onlineusers = users
-                })
-                .joining((user) => {
-                    this.onlineusers.push(user);
-                })
-                .leaving((user) => {
-                    this.onlineusers = this.onlineusers.filter((u) => {
-                        u != user;
+                    this.onlineusers = users;
+                    console.log('here');
+
+                    _.each(this.onlineusers, (u) => {
+                        if (u.id == userId) {
+                            return;
+                        }
+
+                        // Echo.private('chat-room.1.2')
+                        Echo.private('chat-room.' + u.id + '.' + userId)
+                            .listen('ChatRoomBroadCast', (e) => {
+                                this.pushNotification(e, 'from here');
+                            });
                     });
+                })
+                .joining((friend) => {
+                    this.onlineusers.push(friend);
+                    console.log('Joining');
+                    Echo.private('chat-room.' + friend.id + '.' + userId)
+                    // Echo.private('chat-room.1.2')
+                        .listen('ChatRoomBroadCast', (e) => {
+                            this.pushNotification(e, 'from joining');
+                        });
+                })
+                .leaving((friend) => {
+                    this.onlineusers = this.onlineusers.filter((u) => {
+                        return u != friend;
+                    });
+
+                    // pretend duplicate push notification
+                    Echo.leave('chat-room.' + friend.id + '.' + userId);
+                    // Echo.leave('chat-room.1.2');
+
+                    console.log('leaving');
                 })
         }
     },
     methods: {
         scrollToBottom: function() {
             setTimeout(function () {
-                console.log($('.direct-chat-primary').height());
+                // console.log($('.direct-chat-primary').height());
                 $("html, body").animate({ scrollTop: $('.direct-chat-primary').height() }, 100);
             }, 0);
         },
-        pushNotification: function () {
-            console.log('push notification');
-            Push.create('Hello world!', {
-                body: "CLGT",
-                icon: 'https://deerawan.gallerycdn.vsassets.io/extensions/deerawan/vscode-material2-snippets/2.0.0/1488020846563/Microsoft.VisualStudio.Services.Icons.Default',
+        pushNotification: function (content, from) {
+            console.log('push notification', from);
+            if (typeof Push === 'undefined') {
+                console.log('Push is not defined');
+                return;
+            }
+            Push.create('Limar Demo!', {
+                body: content.chatRoom.chat,
+                icon: 'https://avatars1.githubusercontent.com/u/2322183?s=280&v=4',
                 link: '/#',
                 timeout: 4000,
                 onClick: function () {

@@ -20,7 +20,7 @@
 
 <script>
     export default {
-        props: ['user_id', 'friend_id', 'history', 'avatar'],
+        props: ['user_id', 'friend_id', 'history', 'onlineusers'],
         data() {
             return {
                 chat: '',
@@ -42,7 +42,8 @@
                     friend_id: this.friend_id,
                     user: {
                         avatar: $('meta[name=user_avatar]').attr('content'),
-                    }
+                    },
+                    is_sendmail: !(_.find(this.onlineusers, {id: this.friend_id})),
                 };
 
                 axios.post('/chat-room/sendChat', data).then((response) => {

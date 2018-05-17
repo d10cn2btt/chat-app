@@ -149,16 +149,15 @@
             </div>
         </div>
         <div class="box-footer">
-            <chat-room-composer :user_id="user_id" :friend_id="friend_id" :history="chat123"></chat-room-composer>
+            <chat-room-composer :user_id="user_id" :friend_id="friend_id" :history="chat123" :onlineusers="onlineusers"></chat-room-composer>
         </div>
     </div>
 </template>
 
 <script>
     export default {
-        props: ['chat123', 'user_id', 'friend_id'],
+        props: ['chat123', 'user_id', 'friend_id', 'onlineusers'],
         mounted() {
-            console.log('Component mounted');
         }
     }
 </script>

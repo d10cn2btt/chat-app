@@ -27,6 +27,9 @@
             background: white;
         }
     </style>
+
+    {{--<script src="https://pushjs.org/scripts/push.min.js"></script>--}}
+
 </head>
 <body>
 <div id="app">
@@ -41,13 +44,12 @@
                     {{--</div>--}}
                 </div>
                 <div class="panel-body">
-                    <chat-room-list :chat123="chats" :user_id="{{ Auth::user()->id }}" :friend_id="{{ $friend->id }}"></chat-room-list>
+                    <chat-room-list :onlineusers="onlineusers" :chat123="chats" :user_id="{{ Auth::user()->id }}" :friend_id="{{ $friend->id }}"></chat-room-list>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script src="/js/push.min.js"></script>
 
 <script>
     function demo() {
