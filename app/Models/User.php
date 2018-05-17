@@ -34,4 +34,28 @@ class User extends Authenticatable
     {
         return $this->hasMany(Message::class);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function friendsOfMine()
+    {
+        return $this->belongsToMany(User::class, 'friends', 'user_id', 'friend_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function friendOf()
+    {
+        return $this->belongsToMany(User::class, 'friends', 'friend_id', 'user_id');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function friends()
+    {
+        return $this->friendsOfMine->merge($this->friendOf);
+    }
 }

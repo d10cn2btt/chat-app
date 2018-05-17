@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\UserOffline;
+use App\Models\ChatRoom;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -23,6 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+//        Mail::to('bui.tuan.truong@framgia.com')->send(new UserOffline(ChatRoom::find(1)));
         return view('home');
     }
 }

@@ -21,3 +21,23 @@
     </div>
 </div>
 @endsection
+
+@push('js')
+<script src="https://pushjs.org/scripts/push.min.js"></script>
+<script>
+    function demo() {
+        Push.create('Hello world!', {
+            body: "CLGT",
+            icon: 'https://deerawan.gallerycdn.vsassets.io/extensions/deerawan/vscode-material2-snippets/2.0.0/1488020846563/Microsoft.VisualStudio.Services.Icons.Default',
+            link: '/#',
+            timeout: 4000,
+            onClick: function () {
+                console.log("Fired!");
+                window.focus();
+                this.close();
+            },
+            vibrate: [200, 100, 200, 100, 200, 100, 200]
+        });
+    }
+</script>
+@endpush

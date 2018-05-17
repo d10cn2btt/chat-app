@@ -18,3 +18,12 @@
 Broadcast::channel('chat-channel', function ($user) {
     return Auth::check();
 });
+
+Broadcast::channel('chat-room.{user_id}.{friend_id}', function ($user, $userId, $friendId) {
+    return true;
+    return $user->id == $friendId;
+});
+
+Broadcast::channel('online', function ($user) {
+    return $user;
+});

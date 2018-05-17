@@ -8,45 +8,117 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+// Font-awesome
+@import '~font-awesome/scss/font-awesome';
+
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
 // chat box
- .chat {
-   list-style: none;
-   margin: 0;
-   padding: 0;
- }
+#chat-container {
+  .chat {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
 
-.chat li {
-  margin-bottom: 10px;
-  padding-bottom: 5px;
-  border-bottom: 1px dotted #B3A9A9;
+  .chat li {
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #B3A9A9;
+  }
+
+  .chat li .chat-body p {
+    margin: 0;
+    color: #777777;
+  }
+
+  .panel-body {
+    overflow-y: scroll;
+    height: 350px;
+  }
+
+  ::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #F5F5F5;
+  }
+
+  ::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    background-color: #555;
+  }
 }
 
-.chat li .chat-body p {
-  margin: 0;
-  color: #777777;
+// Chat Room Private
+#chat-room-private {
+  .panel-title {
+    font-size: 18px;
+  }
 }
 
-.panel-body {
-  overflow-y: scroll;
-  height: 350px;
+// Chat Room - List Friend
+#list-friend {
+  .list-group {
+    a {
+      text-decoration: none;
+      color: #212529;
+    }
+
+    .avt-friend {
+      width: 35px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+  }
 }
 
-::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  background-color: #F5F5F5;
+#iframe-wrapper {
+  position: fixed;
+  bottom: 0;
+  width: 260px;
+  height: 340px;
+  padding: 0;
+  border: 1px solid #ddd;
+  z-index: 2;
 }
 
-::-webkit-scrollbar {
-  width: 12px;
-  background-color: #F5F5F5;
+#load-iframe, .iframe-chat-private {
+  width: 100%;
+  border: none;
+  height: 100%;
 }
 
-::-webkit-scrollbar-thumb {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
-  background-color: #555;
+#box-private {
+  .friend-name {
+    background: #3c8dbc;
+    color: white;
+    font-weight: bold;
+    padding: 5px 10px;
+    line-height: 22px;
+    font-size: 18px;
+  }
+
+  .panel-heading {
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    width: 100%;
+  }
+
+  .panel-body {
+    margin-top: 30px;
+    margin-bottom: 60px;
+  }
+}
+
+li.list-group-item.active {
+  background-color: #3c8dbc;
+  border-color: #3c8dbc;
 }
